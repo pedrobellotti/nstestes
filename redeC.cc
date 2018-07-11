@@ -109,15 +109,15 @@ main (int argc, char *argv[])
   MobilityHelper mobility;
 
   mobility.SetPositionAllocator ("ns3::GridPositionAllocator",
-                                 "MinX", DoubleValue (0.0),
-                                 "MinY", DoubleValue (0.0),
+                                 "MinX", DoubleValue (1.0),
+                                 "MinY", DoubleValue (1.0),
                                  "DeltaX", DoubleValue (5.0),
-                                 "DeltaY", DoubleValue (10.0),
-                                 "GridWidth", UintegerValue (3),
+                                 "DeltaY", DoubleValue (7.0),
+                                 "GridWidth", UintegerValue (2),
                                  "LayoutType", StringValue ("RowFirst"));
 
   mobility.SetMobilityModel ("ns3::RandomWalk2dMobilityModel",
-                             "Bounds", RectangleValue (Rectangle (-10, 10, -10, 10)));
+                             "Bounds", RectangleValue (Rectangle (0, 10, 0, 10)));
   mobility.Install (wifiStaNodes);
 
   mobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -212,6 +212,9 @@ main (int argc, char *argv[])
   anim.SetConstantPosition (csmaNodes.Get(3), 16.0, 15.0); //S4
 
   anim.SetConstantPosition (p2pNodes.Get(1), 10.0, 13.0); //AP
+
+  //Pcap
+  pointToPoint.EnablePcapAll("redeCp2p");
 
   // Flow monitor
   Ptr<FlowMonitor> flowMonitor;
