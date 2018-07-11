@@ -175,12 +175,12 @@ main (int argc, char *argv[])
   echoClientC2.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
   echoClientC2.SetAttribute ("PacketSize", UintegerValue (512));
 
-  UdpEchoClientHelper echoClientC3 (csmaInterfaces.GetAddress (1), 9);
+  UdpEchoClientHelper echoClientC3 (csmaInterfaces.GetAddress (2), 9);
   echoClientC3.SetAttribute ("MaxPackets", UintegerValue (1));
   echoClientC3.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
   echoClientC3.SetAttribute ("PacketSize", UintegerValue (1024));
 
-  UdpEchoClientHelper echoClientC4 (csmaInterfaces.GetAddress (2), 9);
+  UdpEchoClientHelper echoClientC4 (csmaInterfaces.GetAddress (3), 9);
   echoClientC4.SetAttribute ("MaxPackets", UintegerValue (1));
   echoClientC4.SetAttribute ("Interval", TimeValue (Seconds (1.0)));
   echoClientC4.SetAttribute ("PacketSize", UintegerValue (2048));
