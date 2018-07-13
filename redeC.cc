@@ -54,6 +54,8 @@ main (int argc, char *argv[])
 {
   LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
+  LogComponentEnable ("UdpEchoClientApplication", LOG_PREFIX_NODE );
+  LogComponentEnable ("UdpEchoServerApplication", LOG_PREFIX_NODE );
 
   //Criando S4 e AP (conexao P2P)
   NodeContainer p2pNodes;
@@ -106,8 +108,8 @@ main (int argc, char *argv[])
   NetDeviceContainer apDevices;
   apDevices = wifi.Install (phy, mac, wifiApNode);
 
+  //Adicionando mobilidade
   MobilityHelper mobility;
-
   mobility.SetPositionAllocator ("ns3::GridPositionAllocator",
                                  "MinX", DoubleValue (1.0),
                                  "MinY", DoubleValue (1.0),
@@ -146,7 +148,6 @@ main (int argc, char *argv[])
   address.Assign (apDevices);
 
   UdpEchoServerHelper echoServer (9);
-
   //Instalando apps de servidor
   ApplicationContainer serverS1 = echoServer.Install (wifiStaNodes.Get (0));
   serverS1.Start (Seconds (1.0));
@@ -202,8 +203,6 @@ main (int argc, char *argv[])
   clientAppsC4.Start (Seconds (2.0));
   clientAppsC4.Stop (Seconds (10.0));
 
-  Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
-
   //NetAnim
   AnimationInterface anim ("redeC.xml");
   anim.SetConstantPosition (csmaNodes.Get(0), 4.0, 15.0); //C1
@@ -213,8 +212,10 @@ main (int argc, char *argv[])
 
   anim.SetConstantPosition (p2pNodes.Get(1), 10.0, 13.0); //AP
 
+  Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
+
   //Pcap
-  pointToPoint.EnablePcapAll("redeCp2p");
+  pointToPoint.EnablePcapAll("redeC");
 
   // Flow monitor
   Ptr<FlowMonitor> flowMonitor;
